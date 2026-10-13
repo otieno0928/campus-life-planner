@@ -76,7 +76,7 @@ Visual focus states are prominently styled using custom --focus-ring variables (
      #Testing Instructions
   
 Automated test assertions are built into the repository to verify input rules and live search pattern logic: 
-1. Open a nrowser and navigate to http://127.0.0.1:5500/tests.html 
+1. Open a browser and navigate to http://127.0.0.1:5500/tests.html 
 2. The browser will run the assertion section automatically via ES modules upon loading. 
 3. Review the test dashboard items: 
 * Green panels indicate success in the regex checks and inputs.
