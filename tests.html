@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Life Planner — Regex & Validation Tests</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/tests.css">
+  <style>
+    .test-container { max-width: 800px; margin: 2rem auto; }
+    .test-item { padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 4px; border: 1px solid var(--border-color); }
+    .test-pass { background-color: #e8f5e9; border-color: #c8e6c9; color: #2e7d32; }
+    .test-fail { background-color: #ffebee; border-color: #ffcdd2; color: #c62828; }
+    .summary-box { font-size: 1.1rem; font-weight: bold; margin-bottom: 1.5rem; padding: 1rem; background: #e3f2fd; color: #0d47a1; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <header role="banner" class="app-header">
+    <div class="container">
+      <h1>Regex Validation Test Section</h1>
+      <p>Automated validation tests for form inputs and search pattern Matches</p>
+    </div>
+  </header>
+
+  <main class="container test-container">
+    <div id="test-summary" class="summary-box">Running test validations...</div>
+    <div id="test-results"></div>
+    <p style="margin-top: 1.5rem;"><a href="index.html" class="btn btn-primary">&larr; Back to Planner Application</a></p>
+  </main>
+
+  <script type="module">
+    import { validators } from './scripts/validators.js';
+    import { compileSafeRegex } from './scripts/search.js';
+
+    const resultsContainer = document.getElementById('test-results');
+    const summaryContainer = document.getElementById('test-summary');
+    let passedCount = 0;
+    let failedCount = 0;
+
+    function assert(testName, condition) {
+      const div = document.createElement('div');
+      div.className = `test-item ${condition ? 'test-pass' : 'test-fail'}`;
+      div.innerHTML = `<strong>${testName}:</strong> ${condition ? 'PASSED' : 'FAILED'}`;
+      resultsContainer.appendChild(div);
+      if (condition) passedCount++; else failedCount++;
+    }
+
+
+    // Title Validation 
+    assert('Title: Valid standard title', validators.titleRegex.test('Data Structures Lecture'));
+    assert('Title: Reject leading space', !validators.titleRegex.test(' Data Structures'));
+    assert('Title: Reject trailing space', !validators.titleRegex.test('Data Structures '));
+    assert('Title: Reject double spaces inside', !validators.titleRegex.test('Data  Structures'));
+
+    //  Date Validation Tests in order of format
+    assert('Date: Valid ISO date', validators.dateRegex.test('2026-10-12'));
+    assert('Date: Reject invalid month', !validators.dateRegex.test('2026-13-01'));
+    assert('Date: Reject invalid day format', !validators.dateRegex.test('2026-10-32'));
+    assert('Date: Reject incorrect separators', !validators.dateRegex.test('2026/10/12'));
+
+    // Duration Numeric Tests
+    assert('Duration: Valid integer minutes', validators.durationRegex.test('90'));
+    assert('Duration: Valid decimal minutes', validators.durationRegex.test('45.5'));
+    assert('Duration: Reject negative numbers', !validators.durationRegex.test('-15'));
+    assert('Duration: Reject alphabetic input', !validators.durationRegex.test('ninety'));
+
+    assert('Tag: Valid standard tag', validators.tagRegex.test('@study'));
+    assert('Tag: Valid tag with underscore', validators.tagRegex.test('@lab_work'));
+    assert('Tag: Reject tag missing @ symbol', !validators.tagRegex.test('study'));
+
+    // Advanced Regex: Duplicate Word Back-reference Test
+    assert('Advanced Regex: Detect duplicate consecutive words', validators.duplicateWordRegex.test('lecture lecture'));
+    assert('Advanced Regex: No false positive on single words', !validators.duplicateWordRegex.test('lecture hall'));
+
+    // Safe Regex Compiler Tests
+    const safeRegex = compileSafeRegex('^@study', true);
+    assert('Safe Regex Compiler: Compiles valid pattern', safeRegex instanceof RegExp);
+    assert('Safe Regex Compiler: Matches correctly case-insensitively', safeRegex.test('@STUDY'));
+
+    const invalidRegex = compileSafeRegex('[unclosed-bracket', true);
+    assert('Safe Regex Compiler: Safely handles invalid syntax (returns null)', invalidRegex === null);
+
+    summaryContainer.textContent = `Test Complete: ${passedCount} Passed, ${failedCount} Failed.`;
+    if (failedCount > 0) {
+      summaryContainer.style.backgroundColor = '#ffebee';
+      summaryContainer.style.color = '#c62828';
+    }
+  </script>
+</body>
+</html>
