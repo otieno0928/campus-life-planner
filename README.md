@@ -17,12 +17,13 @@ Github repository: [link](https://github.com/otieno0928/campus-life-planner)
   8. Project structure
 
 #Project Overview
-Managing classes, asssignments, library deadlines, and study group sessions can be overwhelming. The Campus LIfe planner gives students a single, fast dashboard to keep track of their tasks, calculate weekly study workload durations and quickly filter through items using live regex searches.
+
+Managing classes, assignments, library deadlines, and study group sessions can be overwhelming. The Campus LIfe planner gives students a single, fast dashboard to keep track of their tasks, calculate weekly study workload durations and quickly filter through items using live regex searches.
 The application runs entirely on the browser's client side, using localstorage to save data safely between browser sessions without needing an external database setup. 
 
  #Features
  
-*Event& task management(CRUD): Create, view, edit and delete academic tasks and campius events easily.
+*Event& task management(CRUD): Create, view, edit and delete academic tasks and campus events easily.
 *Real-time Form Validation: Form entries are verified immediately as you type using custom regular expressions to catch errors before submission. 
 *Live Search & filter: Dynamic live-search bar supporting plain text queries as well as custom Regular Expressions(Regex) with optional case insensitive sorting.
 *Dashboard Metrics & Duration Warning: Automatically totals active tasks, calculates aggregate duration in minutes, and flags warnings if the weekly target caps are exceeded.
@@ -32,7 +33,7 @@ The application runs entirely on the browser's client side, using localstorage t
 
  #Setup& Local installation 
  
-Because this application relies on standard html5, css3 and ES6, Javascript Modules withouyt build tool dependencies, you can run it locally in just a few simple steps.
+Because this application relies on standard HTML5, CSS3 and ES6, Javascript Modules without build tool dependencies, you can run it locally in just a few simple steps.
  Prerequisites:
  1. Any modern web browser(chrome, mozilla firefox, microsoft edge)
  2. VS Code with live server extension( or any local static file server) top support ES Module importing.
