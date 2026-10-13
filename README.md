@@ -28,7 +28,7 @@ The application run s entirely on the browser's client side, using localstorage 
 *JSON import & export: Backup your planner data into a downloadable .json file or import existing data files into the system with built in schema error handling.
 *Accessibility& Keyboard Friendly: It is fully structured with standard semantic html 5 elements, high contrast visual focus rings , visible ARIA live regions and screen reader support.
 
-        Setup& Local installation 
+ Setup& Local installation 
 Because this application relies on standard html5, css3 and ES6, Javascript Modules withouyt build tool dependencies, you can run it locally in just a few simple steps.
  Prerequisites:
  1. Any modern web browser(chrome, mozilla firefox, microsoft edge)
@@ -41,8 +41,13 @@ Because this application relies on standard html5, css3 and ES6, Javascript Modu
 5. Open your browser and navigate to ie http://127.0.0.1.5500/index.html
 
       Regex Validation Catalog
-The application employs precise client-side regular expressions to ensure input data accuracy before updating state:
-Input Field   |Regular Expression  |Description & RulesTitle / Task Name^[A-Za-z0-9\s\-_:\(\)]{3,60}$Accepts letters, numbers, spaces, hyphens, underscores, colons, and parentheses. Length must be between 3 and 60 characters.Due Date^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$Standard ISO date format (YYYY-MM-DD). Ensures valid months (01–12) and valid day numbers (01–31).Duration (mins)^(?![0\D])\d{1,4}$Positive non-zero integers up to 4 digits long (1 to 9999 minutes). Disallows leading zeros or fractional numbers.Tag Field^@[a-zA-Z0-9_\-]{2,20}$Must start with an @ symbol followed by 2 to 20 alphanumeric characters, hyphens, or underscores (e.g., @study, @lecture).Live Regex SearchCustom user string safely compiled via new RegExp(pattern, flags)Allows users to filter tasks live using expressions like ^@study or \b\d{2}\b. Includes fallback handling to prevent browser crashes on incomplete user input.
+This  is is divided into 3 sections; Field, Regex Pattern and Purpose / Validation Logic as illustrated below:
+*Title Pattern == ^[A-Za-z0-9\s\-_:]{3,50}$ ==  Enforces 3 to 50 alphanumeric characters including spaces, hyphens, underscores, and colons.
+*ISO Date == ^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$ == Validates strict YYYY-MM-DD date formatting.
+*Duration == ^(?:[1-9]\d*|0(?:\.\d+)?)$ == Validates positive numerical values (integers or decimals).
+*Category Tag == ^@[a-zA-Z0-9_-]{2,20}$ == Enforces category tags starting with @ followed by 2–20 alphanumeric characters.
+*Safe Search ==  (?=.*[a-zA-Z])(?=.*\d) ==Advanced lookahead expression ensuring dynamic queries compile safely during real-time search.
+#N/B: The symbols "==" have been used to separate the 3 sections due to lack of proper formating components ie rows and columns. 
          Keyboard Navigation Map 
 The entire web application can be comfortably navigated via a standard keyboard:
 * Tab: Navigates forward through all the interactive controls, input fields, navigation links, and action buttons.
