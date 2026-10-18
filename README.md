@@ -5,7 +5,6 @@ A lightweight, accessible and responsive web application designed to help univer
 Live Application: https://otieno0928.github.io/campus-life-planner/
 Github repository: [link](https://github.com/otieno0928/campus-life-planner)
 DEMO VIDEO LINK:https://youtu.be/Z7vZ6gOH6Bg
-
   TABLE OF CONTENTS
   
   1. Project Overview
